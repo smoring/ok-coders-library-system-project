@@ -1,0 +1,6 @@
+Insert:
+curl -X POST -H 'Content-Type: application/json' -d '{"isbn":"123456789ABC","title":"Javascript for Dummies","author":"Java Script","genre":"technical","status":"A"}' localhost:8088/books/add
+
+curl -X POST -H 'Content-Type: application/json' -d '{"isbn":"ABCD1234567890","title":"50 Shades of CSS","author":"Bill Styles","genre":"technical","status":"C"}' localhost:8088/books/add
+
+curl -X POST -H 'Content-Type: application/json' -d '{"isbn":"ADA99877665412","title":"Are We There Yet","author":"Chris Columbus","genre":"Fiction","status":"L"}' localhost:8088/books/add

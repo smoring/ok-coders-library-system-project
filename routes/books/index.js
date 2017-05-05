@@ -1,7 +1,7 @@
-var Book = require('../../models/books');
+var Books = require('../../models/books');
 
 exports.create = function(req, res, next){
-	var book = new Book();
+	var book = new Books();
 	var isbn = req.body.isbn;
 	var title = req.body.title;
 	var author = req.body.author;
@@ -30,7 +30,7 @@ exports.create = function(req, res, next){
 }
 
 exports.read = function(req, res, next){
-	var book = new Book();
+	var book = new Books();
 	var isbn = req.body.isbn;
 	var title = req.body.title;
 	var author = req.body.author;
