@@ -1,0 +1,23 @@
+{
+  "name": "ok-coders-library-system-project",
+  "version": "1.0.0",
+  "description": "You are currently marveling at the OKCoders class project, Library.  It was created by class members Susan Moring, Matt Warner and Kevin Roberson.  For more information or to get a custom project yourself, please contact our agent, Bob Rockers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smoring/ok-coders-library-system-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smoring/ok-coders-library-system-project/issues"
+  },
+  "homepage": "https://github.com/smoring/ok-coders-library-system-project#readme",
+  "dependencies": {
+    "mongoose": "^4.9.6",
+    "restify": "^4.3.0"
+  }
+}
