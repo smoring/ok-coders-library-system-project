@@ -9,21 +9,23 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/library');
 var db = mongoose.connection;
 
-db.on('error', function(msg){
+db.on('error', function(msg) {
 	console.log('Mongoose connection error %s', msg);
 });
 
-db.once('open', function(){
+db.once('open', function() {
 	console.log('Mongoose connection established');
 });
 
 server.post('books/add', books.create);
 server.post('books/:isbn', books.read);
+server.put('books/:id', books.delete);
+server.get('books/:searchData/:searchType', books.search)
 server.get('/', restify.serveStatic({
 	directory: './client', 
-	default: "index.html"
+	default: 'index.html'
 }));
 
-server.listen(port, function(){
+server.listen(port, function() {
 	console.log("%s listening on %s", server.name, port);
 });

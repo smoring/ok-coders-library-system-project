@@ -1,6 +1,6 @@
 var Books = require('../../models/books');
 
-exports.create = function(req, res, next){
+exports.create = function(req, res){
 	var book = new Books();
 	var isbn = req.body.isbn;
 	var title = req.body.title;
@@ -9,8 +9,7 @@ exports.create = function(req, res, next){
 	var status = req.body.status;
 
 	if(!isbn || !title || !author || !genre || !status) {
-		res.send(404, "Incomplete information provided.");
-		return next();
+		res.send(202, "Incomplete information provided.");
 	}
 
 	book.isbn = isbn;
@@ -18,34 +17,97 @@ exports.create = function(req, res, next){
 	book.author = author;
 	book.genre = genre;
 	book.status = status;
+	book.isActive = true;
 
 	book.save(function(err, data) {
-		if(err){
+		if(err) {
 			console.log("Error saving to db: " + err);
-			res.send(404, "Error with database");
+			res.send(500, "Error with database");
 		} else {
 			res.json(200, {status: "success"});
 		}
-	});	return next();		
+	});		
 }
 
-exports.read = function(req, res, next){
-	var book = new Books();
-	var isbn = req.body.isbn;
-	var title = req.body.title;
-	var author = req.body.author;
-	var genre = req.body.genre;
-	var status = req.body.status;
+exports.delete = function(req, res){
+	var id = req.param.id;
 
-	if(!isbn || !title || !author || !genre || !status) {
-		res.send(404, "Incomplete information provided.");
-		return next();
+	book.findById(id, function (err, book) {
+		book.isActive = false;
+		book.save(function(err, book) {
+			if(err) {
+				console.log("Error deleting book: " + err);
+				res.send(500, "Error with database");
+			} else {
+					res.json(200, {status: "success"});	
+			}
+		});
+	});
+};
+
+exports.search = function(req, res){
+	var book = new Books();
+	var searchType = req.param.searchType;
+	var searchData = req.param.searchData;
+
+	if(!searchType || !searchData) {
+		res.send(404, "Search type and criteria required.");
 	}
 
-	Book.findOne({isbn: isbn}).exec(function(err,data) {
-		if(!data) { 
-			res.json(400,{status:"failed", reason: "Book not found."});
-			return next();
-		}
-	});
+	switch(searchType) {
+		case(isbn):
+			book.findOne({isbn: isbn}).exec(function(err,data) {
+				if(!data) { 
+					res.json(400,{status:"failed", reason: "Book not found."});
+				} else {
+						if(isActive) {
+
+						}
+				}
+			});
+
+		case(title):
+			book.findOne({title: title}).exec(function(err,data) {
+				if(!data) { 
+					res.json(400,{status:"failed", reason: "Book not found."});
+				} else {
+						if(isActive) {
+
+						}
+				}
+			});
+
+		case(author):
+			book.findOne({author: author}).exec(function(err,data) {
+				if(!data) { 
+					res.json(400,{status:"failed", reason: "Book not found."});
+				} else {
+						if(isActive) {
+
+						}
+				}
+			});
+
+		case(genre):
+			book.findOne({genre: genre}).exec(function(err,data) {
+				if(!data) { 
+					res.json(400,{status:"failed", reason: "Book not found."});
+				} else {
+						if(isActive) {
+
+						}
+				}
+			});
+
+		case(status):
+			book.findOne({status: status}).exec(function(err,data) {
+				if(!data) { 
+					res.json(400,{status:"failed", reason: "Book not found."});
+				} else {
+						if(isActive) {
+
+						}
+				}
+			});
+	}
 }
