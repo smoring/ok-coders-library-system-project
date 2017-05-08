@@ -56,7 +56,7 @@ exports.search = function(req, res){
 
 	switch(searchType) {
 		case(isbn):
-			book.findOne({isbn: isbn}).exec(function(err,data) {
+			book.find({isbn: isbn}).exec(function(err,data) {
 				if(!data) { 
 					res.json(400,{status:"failed", reason: "Book not found."});
 				} else {
@@ -67,7 +67,7 @@ exports.search = function(req, res){
 			});
 
 		case(title):
-			book.findOne({title: title}).exec(function(err,data) {
+			book.find({title: title}).exec(function(err,data) {
 				if(!data) { 
 					res.json(400,{status:"failed", reason: "Book not found."});
 				} else {
@@ -78,7 +78,7 @@ exports.search = function(req, res){
 			});
 
 		case(author):
-			book.findOne({author: author}).exec(function(err,data) {
+			book.find({author: author}).exec(function(err,data) {
 				if(!data) { 
 					res.json(400,{status:"failed", reason: "Book not found."});
 				} else {
@@ -89,7 +89,7 @@ exports.search = function(req, res){
 			});
 
 		case(genre):
-			book.findOne({genre: genre}).exec(function(err,data) {
+			book.find({genre: genre}).exec(function(err,data) {
 				if(!data) { 
 					res.json(400,{status:"failed", reason: "Book not found."});
 				} else {
@@ -100,7 +100,7 @@ exports.search = function(req, res){
 			});
 
 		case(status):
-			book.findOne({status: status}).exec(function(err,data) {
+			book.find({status: status}).exec(function(err,data) {
 				if(!data) { 
 					res.json(400,{status:"failed", reason: "Book not found."});
 				} else {
