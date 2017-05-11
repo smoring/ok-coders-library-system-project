@@ -111,3 +111,16 @@ exports.search = function(req, res){
 			});
 	}
 }
+
+exports.read = function(err, res) {
+	var book = new Books();
+
+	Books.find(function(err, data) {
+		if(!data) {
+			console.log("No books found: " + err);
+			res.send(404, "No books found.");
+		} else {
+				res.send(data);
+		}
+	});
+}
