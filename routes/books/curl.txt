@@ -5,3 +5,4 @@ curl -X POST -H 'Content-Type: application/json' -d '{"isbn":"ABCD1234567890","t
 
 curl -X POST -H 'Content-Type: application/json' -d '{"isbn":"ADA99877665412","title":"Are We There Yet","author":"Chris Columbus","genre":"Fiction","status":"L", "isActive":true}' localhost:8088/books/add
 
+curl -X PUT -H 'Content-Type: application/json' -d '{"isActve": false}' localhost:8088/books/590e98b7908b290ea05b6429

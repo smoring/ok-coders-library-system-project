@@ -24,17 +24,16 @@ exports.create = function(req, res){
 			console.log("Error saving to db: " + err);
 			res.send(500, "Error with database");
 		} else {
-			res.json(200, {status: "success"});
+				res.json(200, {status: "success"});
 		}
 	});		
 }
 
 exports.delete = function(req, res){
 	var id = req.param.id;
-
-	book.findById(id, function (err, book) {
-		book.isActive = false;
-		book.save(function(err, book) {
+	var query = {_id: id};
+	
+		Books.update(query, {isActive: true}, function(err, book) {
 			if(err) {
 				console.log("Error deleting book: " + err);
 				res.send(500, "Error with database");
@@ -42,7 +41,6 @@ exports.delete = function(req, res){
 					res.json(200, {status: "success"});	
 			}
 		});
-	});
 };
 
 exports.search = function(req, res){
