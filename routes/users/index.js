@@ -23,7 +23,32 @@ exports.create = function(req, res){
 	})
 }
 
-exports.read = function(req, res){
+exports.byLastName = function(req, res){
+	var lastName = req.params.lastName
+	Users.findOne({lastName:lastName}, function(err, doc){
+		if(err){
+			res.send(500, "User search unavailable")
+		}
+		if(!doc){
+			res.send(404, "User not found")
+		}
+		res.json(doc)
+	})
+}
+
+exports.all = function(req, res){
+	Users.find({}, function(err, doc){
+		if(err){
+			res.send(500, "User search unavailable")
+		}
+		if(!doc){
+			res.send(404, "User not found")
+		}
+		res.json(doc)
+	})
+}
+
+exports.byId = function(req, res){
 	var id = req.id
 	Users.findById(id, function(err, doc){
 		if(err){
@@ -35,3 +60,4 @@ exports.read = function(req, res){
 		res.json(doc)
 	})
 }
+
