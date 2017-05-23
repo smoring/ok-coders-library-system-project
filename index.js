@@ -19,8 +19,9 @@ db.once('open', function() {
 
 server.post('books/add', books.create);
 server.get('books', books.read);
-server.put('books/:id', books.delete);
-//server.get('books/:searchData/:searchType', books.search)
+//server.delete('books/delete/:id', books.delete);
+server.put('books/update/:id', books.update);
+server.get('books/:searchData/:searchType', books.search)
 server.get('/', restify.serveStatic({
 	directory: './client', 
 	default: 'index.html'

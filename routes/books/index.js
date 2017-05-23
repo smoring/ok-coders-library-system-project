@@ -29,21 +29,44 @@ exports.create = function(req, res){
 	});		
 }
 
-exports.delete = function(req, res){
-	var id = req.param.id;
-	var query = {_id: id};
+exports.delete = function(req, res) {
+	var id = req.params.id;
+	var query = {"_id": id};
 	
-		Books.update(query, {isActive: true}, function(err, book) {
-			if(err) {
-				console.log("Error deleting book: " + err);
-				res.send(500, "Error with database");
-			} else {
-					res.json(200, {status: "success"});	
-			}
-		});
+	Books.findByIdAndRemove(query, function(err, book) {
+		if(err) {
+			console.log("Error deleting book: " + err);
+			res.send(404, "Error with database");
+		} else {
+				res.json(200, {status: "success"});	
+		}
+	});
 };
 
-exports.search = function(req, res){
+exports.update = function(req, res) {
+	var id = req.params.id;
+
+	
+	Books.findById(id, function(err, book) {
+		if(err) {
+			console.log("Error updating book: " + err);
+			res.send(404, "Error with database");
+		} else {
+				isbn = req.body.isbn;
+				title = req.body.title;
+				author = req.body.author;
+				genre = req.body.genre;
+				status = req.body.status;
+				isActive = req.body.isActive;
+
+				book.save(function(err, updatedBook) {
+					res.send(updatedBook);
+				});	
+		}
+	});
+};
+
+exports.search = function(req, res) {
 	var book = new Books();
 	var searchType = req.param.searchType;
 	var searchData = req.param.searchData;
@@ -56,7 +79,7 @@ exports.search = function(req, res){
 		case(isbn):
 			book.find({isbn: isbn}).exec(function(err,data) {
 				if(!data) { 
-					res.json(400,{status:"failed", reason: "Book not found."});
+					res.json(404,{status:"failed", reason: "Book not found."});
 				} else {
 						if(isActive) {
 
@@ -67,7 +90,7 @@ exports.search = function(req, res){
 		case(title):
 			book.find({title: title}).exec(function(err,data) {
 				if(!data) { 
-					res.json(400,{status:"failed", reason: "Book not found."});
+					res.json(404,{status:"failed", reason: "Book not found."});
 				} else {
 						if(isActive) {
 
@@ -78,7 +101,7 @@ exports.search = function(req, res){
 		case(author):
 			book.find({author: author}).exec(function(err,data) {
 				if(!data) { 
-					res.json(400,{status:"failed", reason: "Book not found."});
+					res.json(404,{status:"failed", reason: "Book not found."});
 				} else {
 						if(isActive) {
 
@@ -89,7 +112,7 @@ exports.search = function(req, res){
 		case(genre):
 			book.find({genre: genre}).exec(function(err,data) {
 				if(!data) { 
-					res.json(400,{status:"failed", reason: "Book not found."});
+					res.json(404,{status:"failed", reason: "Book not found."});
 				} else {
 						if(isActive) {
 
@@ -100,7 +123,7 @@ exports.search = function(req, res){
 		case(status):
 			book.find({status: status}).exec(function(err,data) {
 				if(!data) { 
-					res.json(400,{status:"failed", reason: "Book not found."});
+					res.json(404,{status:"failed", reason: "Book not found."});
 				} else {
 						if(isActive) {
 
