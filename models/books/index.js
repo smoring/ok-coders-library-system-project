@@ -7,6 +7,7 @@ var schema = new Schema({
 	author: String,
 	genre: String,
 	status: String
+	isActive: Schema.Types.Boolean
 });
 
 module.exports = mongoose.model('books', schema);

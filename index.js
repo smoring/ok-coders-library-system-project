@@ -18,10 +18,14 @@ db.once('open', function(){
 	console.log('Mongoose connection established');
 });
 
+//add, find, edit, and delete books
 server.post('books/add', books.create);
-server.post('books/:isbn', books.read);
-server.get(/\/client\/?.*/, restify.serveStatic({
-	directory: __dirname, 
+server.get('books', books.read);
+//server.delete('books/delete/:id', books.delete);
+server.put('books/update/:id', books.update);
+server.get('books/:searchData/:searchType', books.search)
+server.get('/', restify.serveStatic({
+	directory: './client', 
 	default: "index.html"
 }));
 
