@@ -19,13 +19,14 @@ db.once('open', function(){
 });
 
 //add, find, edit, and delete books
-server.post('books/add', books.create);
-server.get('books', books.read);
+//server.post('books/add', books.create);
+//server.get('books', books.read);
 //server.delete('books/delete/:id', books.delete);
-server.put('books/update/:id', books.update);
-server.get('books/:searchData/:searchType', books.search)
-server.get('/', restify.serveStatic({
-	directory: './client', 
+//server.put('books/update/:id', books.update);
+server.get('books/:searchType/:searchData', books.search)
+
+server.get(/\/client\/?.*/, restify.serveStatic({
+	directory: __dirname, 
 	default: "index.html"
 }));
 

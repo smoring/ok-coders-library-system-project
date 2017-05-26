@@ -68,70 +68,77 @@ exports.update = function(req, res) {
 };
 
 exports.search = function(req, res) {
-	var book = new Books();
-	var searchType = req.param.searchType;
-	var searchData = req.param.searchData;
+	var searchType = req.params.searchType;
+	var searchData = req.params.searchData;
+
+	console.log("called")
 
 	if(!searchType || !searchData) {
 		res.send(404, "Search type and criteria required.");
 	}
 
-	switch(searchType) {
-		case(isbn):
-			book.find({isbn: isbn}).exec(function(err,data) {
-				if(!data) { 
-					res.json(404,{status:"failed", reason: "Book not found."});
-				} else {
-						if(isActive) {
+	console.log("about to start search")
 
-						}
-				}
-			});
-
-		case(title):
-			book.find({title: title}).exec(function(err,data) {
-				if(!data) { 
-					res.json(404,{status:"failed", reason: "Book not found."});
-				} else {
-						if(isActive) {
-
-						}
-				}
-			});
-
-		case(author):
-			book.find({author: author}).exec(function(err,data) {
-				if(!data) { 
-					res.json(404,{status:"failed", reason: "Book not found."});
-				} else {
-						if(isActive) {
-
-						}
-				}
-			});
-
-		case(genre):
-			book.find({genre: genre}).exec(function(err,data) {
-				if(!data) { 
-					res.json(404,{status:"failed", reason: "Book not found."});
-				} else {
-						if(isActive) {
-
-						}
-				}
-			});
-
-		case(status):
-			book.find({status: status}).exec(function(err,data) {
-				if(!data) { 
-					res.json(404,{status:"failed", reason: "Book not found."});
-				} else {
-						if(isActive) {
-
-						}
+	if (searchType == "isbn") {
+		console.log("starting search")
+		console.log()
+		Books.findOne({isbn: searchData}, function(err,data) {
+			console.log("error", err)
+			console.log(data)
+			if(!data) { 
+				res.json(404,{status:"failed", reason: "Book not found."});
+			} else {
+					res.json(200,data)
 				}
 			});
 	}
+
+	// switch(searchType) {
+
+	// 	case("title"):
+	// 		Books.find({title: title}).exec(function(err,data) {
+	// 			if(!data) { 
+	// 				res.json(404,{status:"failed", reason: "Book not found."});
+	// 			} else {
+	// 					if(isActive) {
+
+	// 					}
+	// 			}
+	// 		});
+
+	// 	case("author"):
+	// 		Books.find({author: author}).exec(function(err,data) {
+	// 			if(!data) { 
+	// 				res.json(404,{status:"failed", reason: "Book not found."});
+	// 			} else {
+	// 					if(isActive) {
+
+	// 					}
+	// 			}
+	// 		});
+
+	// 	case("genre"):
+	// 		Books.find({genre: genre}).exec(function(err,data) {
+	// 			if(!data) { 
+	// 				res.json(404,{status:"failed", reason: "Book not found."});
+	// 			} else {
+	// 					if(isActive) {
+
+	// 					}
+	// 			}
+	// 		});
+
+	// 	case("status"):
+	// 		Books.find({status: status}).exec(function(err,data) {
+	// 			if(!data) { 
+	// 				res.json(404,{status:"failed", reason: "Book not found."});
+	// 			} else {
+	// 					if(isActive) {
+
+	// 					}
+	// 			}
+	// 		});
+	// }
 }
 
 exports.read = function(err, res) {

@@ -16,14 +16,10 @@
   		function BooksController($scope, $http) {
 
   			$scope.search = function() {
-  				console.log("called")
-  				console.log($scope.isbn);
-  				$http.get('/users/' + $scope.lastName).then(function(data) {
-  					$scope.userData=data.data
-  					if($scope.userData.isActive==true){
-  						$scope.isActive="Active"
-  					} else {$scope.isActive="Inactive"};
-  					console.log($scope.userData)
+  				$http.get('/books/isbn/' + $scope.isbn).then(function(data) {
+  					console.log(data)
+  					$scope.bookData=data.data
+  					console.log($scope.bookData)
   				}, function(err){console.log(err)});
   			};
   		}
@@ -36,9 +32,9 @@
 			<h1>Book lookup</h1>
 			<form class="form-horizontal">
 			  <div class="form-group">
-			    <label for="lastName" class="col-sm-2 control-label">Search by ISBN</label>
+			    <label for="isbn" class="col-sm-2 control-label">Search by ISBN</label>
 			    <div class="col-sm-10">
-			      <input ng-model="lastName" type="text" class="form-control" id="lastName" placeholder="ISBN">
+			      <input ng-model="isbn" type="text" class="form-control" id="isbn" placeholder="ISBN">
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -47,10 +43,11 @@
 			    </div>
 			  </div>
 			</form>
-			<div ng-show="userData">
-				<p>{{'Name: ' + userData.firstName + ' ' + userData.lastName}}</p>
-				<p>{{'Phone: ' + userData.phone}}</p>
-				<p>{{'Status: ' + isActive}}</p>
+			<div ng-show="bookData">
+				<p>{{'Title: ' + bookData.title}}</p>
+				<p>{{'Author: ' + bookData.author}}</p>
+				<p>{{'Genre: ' + bookData.genre}}</p>
+				<p>{{'Status: ' + bookData.status}}</p>
 			</div>
 		</div>
 	</div>
