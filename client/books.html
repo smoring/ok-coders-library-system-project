@@ -19,6 +19,11 @@
   				$http.get('/books/isbn/' + $scope.isbn).then(function(data) {
   					console.log(data)
   					$scope.bookData=data.data
+  					if($scope.bookData.status=="L"){
+  						$scope.status="Lost"
+  					} else if($scope.bookData.status=="C"){
+  						$scope.status="Checked Out"
+  					} else {$scope.status="Available"};
   					console.log($scope.bookData)
   				}, function(err){console.log(err)});
   			};
@@ -47,7 +52,7 @@
 				<p>{{'Title: ' + bookData.title}}</p>
 				<p>{{'Author: ' + bookData.author}}</p>
 				<p>{{'Genre: ' + bookData.genre}}</p>
-				<p>{{'Status: ' + bookData.status}}</p>
+				<p>{{'Status: ' + status}}</p>
 			</div>
 		</div>
 	</div>

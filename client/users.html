@@ -26,14 +26,23 @@
   					console.log($scope.userData)
   				}, function(err){console.log(err)});
   			};
+
+  			$scope.add = function() {
+  				console.log("called")
+  				console.log($scope.firstName + $scope.addLastName + $scope.phone);
+  				$http.post('/users/add', {firstName:$scope.firstName, lastName:$scope.addLastName, phone:$scope.phone, isActive:true}).then(function(data) {
+  					console.log(data) 
+  				}, function(err){console.log(err)});
+  			};
   		}
+
 
 	</script>
 </head>
 <body>
 	<div class="jumbotron">
 		<div class="container" ng-controller="UsersController">
-			<h1>User lookup</h1>
+			<h1>Library Users</h1>
 			<form class="form-horizontal">
 			  <div class="form-group">
 			    <label for="lastName" class="col-sm-2 control-label">Search by last name</label>
@@ -52,6 +61,26 @@
 				<p>{{'Phone: ' + userData.phone}}</p>
 				<p>{{'Status: ' + isActive}}</p>
 			</div>
+			<p><button type="button" class="btn btn-link">Add a new user</button></p>
+			<form>
+  				<div class="form-group">
+   					<label for="firstName">First Name</label>
+    				<input ng-model="firstName" type="text" class="form-control" id="firstName" placeholder="First Name">
+  				</div>
+  				<div class="form-group">
+    				<label for="lastName">Last Name</label>
+    				<input ng-model="addLastName" type="text" class="form-control" id="addLastName" placeholder="Last Name">
+ 				 </div>
+ 				 <div class="form-group">
+    				<label for="phone">Add phone</label>
+    				<input ng-model="phone" type="text" class="form-control" id="phone" placeholder="Enter ten digit phone number with no spaces">
+ 				 </div>
+ 				 <div class="form-group">
+			    	<div class="col-sm-offset-2 col-sm-10">
+			      		<button ng-click="add()" type="submit" class="btn btn-default">Add User</button>
+			    	</div>
+			  	</div>
+			</form>
 		</div>
 	</div>
 </body>
